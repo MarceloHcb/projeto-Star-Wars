@@ -2,7 +2,8 @@ import React from 'react';
 import useAuth from '../../hooks/useAuth';
 
 function Table() {
-  const { dataApi, loading } = useAuth();
+  const { dataApi, loading, newData = dataApi } = useAuth();
+
   return (
     <div>
       {loading === true ? <p>Loading...</p>
@@ -19,7 +20,7 @@ function Table() {
                 </tr>
               </thead>
               <tbody>
-                {dataApi && (dataApi.map((el, index) => (
+                {newData && (newData?.map((el, index) => (
                   <tr key={ index }>
                     {Object.values(el).map((res, key) => (
                       <td key={ key }>{res}</td>

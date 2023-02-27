@@ -29,6 +29,7 @@ const useFetch = (url) => {
   return {
     dataApi,
     loading,
+    setDataApi,
   };
 };
 
