@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function Input({ type, handleChange, dataTestid }) {
+function Input({ type, handleChange, dataTestid, name, value }) {
   return (
     <input
       type={ type }
+      name={ name }
+      value={ value }
       onChange={ ({ target }) => handleChange({ target }) }
       data-testid={ dataTestid }
     />
@@ -12,9 +14,11 @@ function Input({ type, handleChange, dataTestid }) {
 }
 
 Input.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
   dataTestid: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default Input;
