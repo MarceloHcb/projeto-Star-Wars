@@ -49,14 +49,14 @@ export function AuthProvider({ children }) {
       objectNames: [...objectNames, Object.values(numericFilter).join(' ')],
       itensToFilter: [...itensToFilter, numericFilter],
     });
-    // setOptionsColumn(optionsColumn.filter((el) => el !== numericFilter.column));
+    setOptionsColumn(optionsColumn.filter((el) => el !== numericFilter.column));
     setFilterValues(INITIAL_STATE);
   };
-  console.log(dataApi);
+
   let newData;
   const obj = filterValues.search ? filterValues.search : '';
-  console.log(obj);
   newData = dataApi?.filter((data) => data.name.includes(obj));
+
   if (filteredObjectValues.itensToFilter.length > 0) {
     filteredObjectValues.itensToFilter.forEach((filter) => {
       newData = newData.filter((element) => {
