@@ -3,6 +3,7 @@ import useAuth from '../../hooks/useAuth';
 
 function Table() {
   const { dataApi, loading, newData = dataApi } = useAuth();
+  console.log(newData);
 
   return (
     <div>

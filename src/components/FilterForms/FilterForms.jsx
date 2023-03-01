@@ -7,17 +7,14 @@ import FilterComponent from './FilterComponent/FilterComponent';
 
 function FilterForms() {
   const { handleChange, handleFilterClick, handleFilterChange,
-    filterObjectName, filterValues } = useAuth();
-
-  const optionsColumn = ['population', 'orbital_period',
-    'diameter', 'rotation_period', 'surface_water'];
-  const optionsComparison = ['maior que', 'menor que', 'igual a'];
+    filteredObjectValues, numericFilter, optionsColumn, optionsComparison } = useAuth();
 
   return (
     <div>
       <Input
         dataTestid="name-filter"
         type="text"
+        name="search"
         handleChange={ handleChange }
       />
       <Select
@@ -37,7 +34,7 @@ function FilterForms() {
         type="number"
         name="number"
         handleChange={ handleFilterChange }
-        value={ filterValues.number }
+        value={ numericFilter.number }
       />
       <Button
         type="button"
@@ -45,8 +42,8 @@ function FilterForms() {
         title="FILTRAR"
         handleFilterClick={ handleFilterClick }
       />
-      {filterObjectName.length
-      > 0 && <FilterComponent filterObjectName={ filterObjectName } /> }
+      {filteredObjectValues.objectNames.length > 0
+      && <FilterComponent filteredObjectValues={ filteredObjectValues.objectNames } /> }
 
     </div>
   );

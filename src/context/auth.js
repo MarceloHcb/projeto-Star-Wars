@@ -7,73 +7,84 @@ export const AuthContext = createContext({});
 export function AuthProvider({ children }) {
   const BASE_URL = 'https://swapi.dev/api/planets';
   const { dataApi, loading } = useFetch(BASE_URL);
-  const [filterValues, setFilterValues] = useState({
-    column: 'population',
-    comparison: 'maior que',
+
+  const [optionsColumn, setOptionsColumn] = useState(['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
+  console.log(setOptionsColumn);
+  const optionsComparison = ['maior que', 'menor que', 'igual a'];
+  const INITIAL_STATE = {
+    column: optionsColumn[0],
+    comparison: optionsComparison[0],
     number: 0,
+  };
+  const [filterValues, setFilterValues] = useState({});
+  const [numericFilter, setNumericFilter] = useState(INITIAL_STATE);
+  const [filteredObjectValues, setFilteredObjectValues] = useState({
+    objectNames: [],
+    itensToFilter: [],
+    filterdNumericFilter: [],
   });
-  const [filterObjectName, setFilter] = useState([]);
-  const [newData, setNewData] = useState();
-  const [objects, setObjects] = useState([]);
-  console.log(dataApi);
+
   const handleChange = ({ target }) => {
-    const filteredData = dataApi?.filter((el) => el.name.includes(target.value));
-    if (filteredData.length > 0) {
-      setNewData(filteredData);
-    } else {
-      setNewData(dataApi);
-    }
+    const { name, value } = target;
+    setFilterValues({
+      [name]: value,
+    });
   };
 
   const handleFilterChange = ({ target }) => {
     const { value, name } = target;
-    setFilterValues({ ...filterValues, [name]: value });
-  };
-
-  const handleFilterClick = () => {
-    setFilter([...filterObjectName, Object.values(filterValues).join(' ')]);
-    const { column } = filterValues;
-    const { comparison } = filterValues;
-    const { number } = filterValues;
-
-    const obj = {
-      name: Object.values(filterValues).join(' '),
-      filters: [filterValues],
-      values: '',
-    };
-
-    if (comparison === 'menor que') {
-      obj.values = dataApi?.filter((el) => Number(el[column]) < Number(number));
-    }
-    if (comparison === 'maior que') {
-      obj.values = dataApi?.filter((el) => Number(el[column]) > Number(number));
-    }
-    if (comparison === 'igual a') {
-      obj.values = dataApi?.filter((el) => Number(el[column]) === Number(number));
-    }
-
-    console.log('obj', obj);
-    setObjects([...objects, obj]);
-    setNewData(obj.values);
-    setFilterValues({
-      column: 'population',
-      comparison: 'maior que',
-      number: 0,
+    setNumericFilter({
+      ...numericFilter,
+      [name]: value,
     });
   };
-  console.log('objects', objects);
-  console.log('filterObjectName', filterObjectName);
-  console.log('newData', newData);
+  console.log(numericFilter);
+  console.log(filterValues);
+  console.log(filteredObjectValues.objectNames);
+  const handleFilterClick = () => {
+    const { objectNames, itensToFilter } = filteredObjectValues;
+    setFilteredObjectValues({
+      ...filteredObjectValues,
+      objectNames: [...objectNames, Object.values(numericFilter).join(' ')],
+      itensToFilter: [...itensToFilter, numericFilter],
+    });
+    // setOptionsColumn(optionsColumn.filter((el) => el !== numericFilter.column));
+    setFilterValues(INITIAL_STATE);
+  };
+  console.log(dataApi);
+  let newData;
+  const obj = filterValues.search ? filterValues.search : '';
+  console.log(obj);
+  newData = dataApi?.filter((data) => data.name.includes(obj));
+  if (filteredObjectValues.itensToFilter.length > 0) {
+    filteredObjectValues.itensToFilter.forEach((filter) => {
+      newData = newData.filter((element) => {
+        switch (filter.comparison) {
+        case 'maior que':
+          return Number(element[filter.column]) > Number(filter.number);
+        case 'igual a':
+          return Number(element[filter.column]) === Number(filter.number);
+        case 'menor que':
+          return Number(element[filter.column]) < Number(filter.number);
+        default:
+          return false;
+        }
+      });
+    });
+  }
 
   const values = ({
     dataApi,
     loading,
     newData,
+    filteredObjectValues,
+    numericFilter,
+    optionsColumn,
+    optionsComparison,
     handleChange,
     handleFilterChange,
     handleFilterClick,
-    filterObjectName,
-    filterValues,
   });
 
   return (

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function FilterComponent({ filterObjectName = '' }) {
+function FilterComponent({ filteredObjectValues = '' }) {
   return (
     <div>
-      {filterObjectName.map((fil, index) => (
+      {filteredObjectValues.map((fil, index) => (
         <div key={ index }>
           <h2>{fil}</h2>
           <button>delete</button>
@@ -15,9 +15,7 @@ function FilterComponent({ filterObjectName = '' }) {
 }
 
 FilterComponent.propTypes = {
-  filterObjectName: PropTypes.shape({
-    map: PropTypes.func,
-  }),
+  filteredObjectValues: PropTypes.string.isRequired,
 };
 
 export default FilterComponent;
