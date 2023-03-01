@@ -10,7 +10,6 @@ export function AuthProvider({ children }) {
 
   const [optionsColumn, setOptionsColumn] = useState(['population', 'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
-  console.log(setOptionsColumn);
   const optionsComparison = ['maior que', 'menor que', 'igual a'];
   const INITIAL_STATE = {
     column: optionsColumn[0],
@@ -39,9 +38,6 @@ export function AuthProvider({ children }) {
       [name]: value,
     });
   };
-  console.log(numericFilter);
-  console.log(filterValues);
-  console.log(filteredObjectValues.objectNames);
   const handleFilterClick = () => {
     const { objectNames, itensToFilter } = filteredObjectValues;
     setFilteredObjectValues({
@@ -51,6 +47,30 @@ export function AuthProvider({ children }) {
     });
     setOptionsColumn(optionsColumn.filter((el) => el !== numericFilter.column));
     setFilterValues(INITIAL_STATE);
+  };
+
+  const handleRemoveAllFilters = () => {
+    setFilteredObjectValues({
+      ...filteredObjectValues,
+      itensToFilter: [],
+    });
+  };
+  console.log(dataApi);
+  const handleRemoveOneFilter = ({ target }) => {
+    const { value } = target;
+    const { objectNames, itensToFilter } = filteredObjectValues;
+
+    const newItensToFilter = itensToFilter
+      .filter((item) => !target.value.includes(item.column));
+    setFilteredObjectValues({
+      ...filteredObjectValues,
+      objectNames: [objectNames.filter((objName) => objName !== target.value)],
+      itensToFilter: newItensToFilter,
+    });
+    setOptionsColumn([value.substring(0, value.indexOf(' ')), ...optionsColumn]);
+    console.log(newItensToFilter);
+    console.log(itensToFilter);
+    console.log(target.value);
   };
 
   let newData;
@@ -68,7 +88,7 @@ export function AuthProvider({ children }) {
         case 'menor que':
           return Number(element[filter.column]) < Number(filter.number);
         default:
-          return false;
+          return [];
         }
       });
     });
@@ -85,6 +105,9 @@ export function AuthProvider({ children }) {
     handleChange,
     handleFilterChange,
     handleFilterClick,
+    handleRemoveAllFilters,
+    setFilteredObjectValues,
+    handleRemoveOneFilter,
   });
 
   return (

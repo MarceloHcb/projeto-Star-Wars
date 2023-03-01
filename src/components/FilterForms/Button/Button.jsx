@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function Button({ type, dataTestid, title, handleFilterClick }) {
+function Button({ type, dataTestid, title, onClick, value }) {
   return (
     <button
       type={ type }
       data-testid={ dataTestid }
-      onClick={ () => handleFilterClick() }
+      value={ value }
+      onClick={ ({ target }) => onClick({ target }) }
     >
       {title}
 
@@ -16,9 +17,10 @@ function Button({ type, dataTestid, title, handleFilterClick }) {
 
 Button.propTypes = {
   dataTestid: PropTypes.string.isRequired,
-  handleFilterClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default Button;

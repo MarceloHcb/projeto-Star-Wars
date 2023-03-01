@@ -1,13 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import useAuth from '../../../hooks/useAuth';
+import Button from '../Button/Button';
 
 function FilterComponent({ filteredObjectValues = '' }) {
+  const { handleRemoveOneFilter } = useAuth();
+
   return (
     <div>
-      {filteredObjectValues.map((fil, index) => (
-        <div key={ index }>
+      { filteredObjectValues.objectNames.map((fil, index) => (
+        <div data-testid="filter" key={ index }>
           <h2>{fil}</h2>
-          <button>delete</button>
+          {fil
+          && <Button
+            title="X"
+            value={ fil }
+            onClick={ handleRemoveOneFilter }
+          /> }
         </div>
       ))}
     </div>

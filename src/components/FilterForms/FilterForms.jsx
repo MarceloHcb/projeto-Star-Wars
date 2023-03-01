@@ -7,7 +7,8 @@ import FilterComponent from './FilterComponent/FilterComponent';
 
 function FilterForms() {
   const { handleChange, handleFilterClick, handleFilterChange,
-    filteredObjectValues, numericFilter, optionsColumn, optionsComparison } = useAuth();
+    filteredObjectValues, numericFilter, optionsColumn,
+    optionsComparison, handleRemoveAllFilters } = useAuth();
 
   return (
     <div>
@@ -40,10 +41,15 @@ function FilterForms() {
         type="button"
         dataTestid="button-filter"
         title="FILTRAR"
-        handleFilterClick={ handleFilterClick }
+        onClick={ handleFilterClick }
+      />
+      <Button
+        dataTestid="button-remove-filters"
+        title="REMOVER FILTROS"
+        onClick={ handleRemoveAllFilters }
       />
       {filteredObjectValues.objectNames.length > 0
-      && <FilterComponent filteredObjectValues={ filteredObjectValues.objectNames } /> }
+      && <FilterComponent filteredObjectValues={ filteredObjectValues } /> }
 
     </div>
   );
