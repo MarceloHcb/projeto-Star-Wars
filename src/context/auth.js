@@ -90,7 +90,7 @@ export function AuthProvider({ children }) {
 
   if (filteredObjectValues.itensToFilter.length > 0) {
     filteredObjectValues.itensToFilter.forEach((filter) => {
-      newData = newData.filter((element) => {
+      newData = newData?.filter((element) => {
         switch (filter.comparison) {
         case 'maior que':
           return Number(element[filter.column]) > Number(filter.number);
