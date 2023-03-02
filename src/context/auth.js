@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { createContext, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 
@@ -16,14 +15,14 @@ export function AuthProvider({ children }) {
     comparison: optionsComparison[0],
     number: 0,
   };
-  const [filterValues, setFilterValues] = useState({});
-  const [numericFilter, setNumericFilter] = useState(INITIAL_STATE);
   const [filteredObjectValues, setFilteredObjectValues] = useState({
     objectNames: [],
     itensToFilter: [],
-    filterdNumericFilter: [],
+    order: { column: 'population', sort: 'ASC' },
   });
-
+  const [filterValues, setFilterValues] = useState({});
+  const [numericFilter, setNumericFilter] = useState(INITIAL_STATE);
+  const [filterOnClick, setFilterOnClick] = useState(false);
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setFilterValues({
@@ -55,7 +54,6 @@ export function AuthProvider({ children }) {
       itensToFilter: [],
     });
   };
-  console.log(dataApi);
   const handleRemoveOneFilter = ({ target }) => {
     const { value } = target;
     const { objectNames, itensToFilter } = filteredObjectValues;
@@ -68,11 +66,23 @@ export function AuthProvider({ children }) {
       itensToFilter: newItensToFilter,
     });
     setOptionsColumn([value.substring(0, value.indexOf(' ')), ...optionsColumn]);
-    console.log(newItensToFilter);
-    console.log(itensToFilter);
-    console.log(target.value);
   };
 
+  const handleOrder = ({ target }) => {
+    setFilterOnClick(false);
+    const { name, value } = target;
+    const { order } = filteredObjectValues;
+    setFilteredObjectValues({
+      ...filteredObjectValues,
+      order: {
+        ...order,
+        [name]: value,
+      },
+    });
+  };
+  const handleOrderClick = () => {
+    setFilterOnClick(true);
+  };
   let newData;
   const obj = filterValues.search ? filterValues.search : '';
   newData = dataApi?.filter((data) => data.name.includes(obj));
@@ -94,6 +104,30 @@ export function AuthProvider({ children }) {
     });
   }
 
+  const { order } = filteredObjectValues;
+  const numberOfFalse = 1;
+  if (filterOnClick) {
+    const { column, sort } = order;
+    if (sort === 'DESC') {
+      newData = newData?.filter((data) => (Object.keys(data)))
+        .sort((a, b) => {
+          if (a[column] === 'unknown') {
+            return a[column] < b[column];
+          }
+          return b[column] - a[column];
+        });
+    }
+    if (sort === 'ASC') {
+      newData = newData?.filter((data) => (Object.keys(data)))
+        .sort((a, b) => {
+          if (a[column] !== 'unknown') {
+            return -numberOfFalse;
+          }
+          return a[column] - b[column];
+        }).sort((a, b) => a[column] - b[column]);
+    }
+  }
+
   const values = ({
     dataApi,
     loading,
@@ -108,6 +142,8 @@ export function AuthProvider({ children }) {
     handleRemoveAllFilters,
     setFilteredObjectValues,
     handleRemoveOneFilter,
+    handleOrder,
+    handleOrderClick,
   });
 
   return (

@@ -7,8 +7,8 @@ import FilterComponent from './FilterComponent/FilterComponent';
 
 function FilterForms() {
   const { handleChange, handleFilterClick, handleFilterChange,
-    filteredObjectValues, numericFilter, optionsColumn,
-    optionsComparison, handleRemoveAllFilters } = useAuth();
+    filteredObjectValues, numericFilter, optionsColumn, optionsComparison,
+    handleRemoveAllFilters, handleOrder, handleOrderClick } = useAuth();
 
   return (
     <div>
@@ -17,18 +17,22 @@ function FilterForms() {
         type="text"
         name="search"
         handleChange={ handleChange }
+        label="Filtrar"
+        placeholder="Filtrar por nome"
       />
       <Select
         options={ optionsColumn }
         dataTestid="column-filter"
         name="column"
-        handleFilterChange={ handleFilterChange }
+        onChange={ handleFilterChange }
+        label="Coluna"
       />
       <Select
         options={ optionsComparison }
         dataTestid="comparison-filter"
         name="comparison"
-        handleFilterChange={ handleFilterChange }
+        onChange={ handleFilterChange }
+        label="Operador"
       />
       <Input
         dataTestid="value-filter"
@@ -47,6 +51,34 @@ function FilterForms() {
         dataTestid="button-remove-filters"
         title="REMOVER FILTROS"
         onClick={ handleRemoveAllFilters }
+      />
+      <Select
+        dataTestid="column-sort"
+        options={ optionsColumn }
+        label="Ordenar"
+        name="column"
+        onChange={ handleOrder }
+      />
+      <Input
+        type="radio"
+        label="Ascendente"
+        value="ASC"
+        name="sort"
+        handleChange={ handleOrder }
+        dataTestid="column-sort-input-asc"
+      />
+      <Input
+        type="radio"
+        label="Descendente"
+        value="DESC"
+        name="sort"
+        handleChange={ handleOrder }
+        dataTestid="column-sort-input-desc"
+      />
+      <Button
+        dataTestid="column-sort-button"
+        title="ORDENAR"
+        onClick={ handleOrderClick }
       />
       {filteredObjectValues.objectNames.length > 0
       && <FilterComponent filteredObjectValues={ filteredObjectValues } /> }

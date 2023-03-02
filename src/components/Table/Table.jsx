@@ -23,7 +23,13 @@ function Table() {
                 {newData && (newData?.map((el, index) => (
                   <tr key={ index }>
                     {Object.values(el).map((res, key) => (
-                      <td key={ key }>{res}</td>
+                      <td
+                        key={ key }
+                        data-testid={ key === 0 ? 'planet-name' : '' }
+                      >
+                        {res}
+
+                      </td>
                     ))}
                   </tr>
                 )))}
