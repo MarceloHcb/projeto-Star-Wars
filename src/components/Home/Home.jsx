@@ -5,7 +5,7 @@ import Table from '../Table/Table';
 function Home() {
   return (
     <div>
-      <p>Hello, App!</p>
+      <p>Star-Wars-Project!</p>
       <FilterForms />
       <Table />
 
