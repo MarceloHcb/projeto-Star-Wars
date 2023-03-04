@@ -11,12 +11,20 @@ test('Verifica se o valor de filtro por texto é renderizado ',() => {
 })
 test('Verifica se o filtro de coluna é renderizado',() => {
     expect(screen.getByTestId('column-filter')).toBeInTheDocument()
+    expect(screen.getByTestId('column-filter')).toHaveValue('population');
+    screen.getByTestId('column-filter').childNodes.forEach((options) => {
+      expect(options).toHaveTextContent(/population|orbital_period|diameter|rotation_period|surface_water/);
+    });
 })
 test('Verifica se o filtro de comparação é renderizado',() => {
     expect(screen.getByTestId('comparison-filter')).toBeInTheDocument()
 })
 test('Verifica se o filtro numérico é renderizado',() => {
     expect(screen.getByTestId('comparison-filter')).toBeInTheDocument()
+    expect(screen.getByTestId('comparison-filter')).toHaveValue('maior que');
+    screen.getByTestId('comparison-filter').childNodes.forEach((options) => {
+      expect(options).toHaveTextContent(/maior que|menor que|igual a/);
+    });
 })
 test('Verifica se o botão FILTRAR é renderizado',() => {
     expect(screen.getByTestId('button-filter')).toBeInTheDocument()

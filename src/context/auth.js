@@ -7,7 +7,6 @@ export const AuthContext = createContext({});
 export function AuthProvider({ children }) {
   const BASE_URL = 'https://swapi.dev/api/planets';
   const { dataApi, loading } = useFetch(BASE_URL);
-
   const [optionsColumn, setOptionsColumn] = useState(['population', 'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
   const optionsComparison = ['maior que', 'menor que', 'igual a'];
