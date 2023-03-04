@@ -51,6 +51,7 @@ export function AuthProvider({ children }) {
   const handleRemoveAllFilters = () => {
     setFilteredObjectValues({
       ...filteredObjectValues,
+      objectNames: '',
       itensToFilter: [],
     });
   };

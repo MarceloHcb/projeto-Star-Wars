@@ -3,7 +3,7 @@ import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import Button from '../Button/Button';
 
-function FilterComponent({ filteredObjectValues = '' }) {
+function FilterComponent({ filteredObjectValues }) {
   const { handleRemoveOneFilter } = useAuth();
 
   return (
