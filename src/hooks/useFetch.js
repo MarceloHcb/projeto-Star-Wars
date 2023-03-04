@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 const useFetch = (url) => {
   const [dataApi, setDataApi] = useState();
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -17,14 +16,13 @@ const useFetch = (url) => {
         });
         setDataApi(results);
       } catch (e) {
-        setError(e);
-        console.log(error);
+        console.log(e);
       } finally {
         setLoading(false);
       }
     };
     fetchApi();
-  }, [url, error]);
+  }, [url]);
 
   return {
     dataApi,

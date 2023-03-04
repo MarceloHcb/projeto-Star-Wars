@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
       .filter((item) => !target.value.includes(item.column));
     setFilteredObjectValues({
       ...filteredObjectValues,
-      objectNames: [objectNames.filter((objName) => objName !== target.value)],
+      objectNames: objectNames.filter((objName) => objName !== target.value),
       itensToFilter: newItensToFilter,
     });
     setOptionsColumn([value.substring(0, value.indexOf(' ')), ...optionsColumn]);
