@@ -9,15 +9,5 @@ describe("Testa o component Table", () => {
       expect(screen.getByRole("table")).toBeInTheDocument();
       
     });
-  });
-  // test('', async() => {
-  //   act(() => {
-  //     render(<App />);
-  //   })
-  //   await waitFor(() => {
-      
-  //     expect(screen.findAllByRole('row')).toHaveLength(11);      
-  //   });
-  // })
-  
+  });   
 });
