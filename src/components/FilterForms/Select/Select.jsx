@@ -36,6 +36,7 @@ import PropTypes from 'prop-types';
 // export default Select;
 
 import React, { Component } from 'react';
+import style from './Select.module.css';
 
 export default class Select extends Component {
   render() {
@@ -48,10 +49,11 @@ export default class Select extends Component {
           data-testid={ dataTestid }
           name={ name }
           id="select"
+          className={ style.container }
           onChange={ ({ target }) => onChange({ target }) }
         >
           {options.map((el, index) => (
-            <option key={ index } value={ el }>
+            <option key={ index } value={ el } className={ style.option }>
               {el}
             </option>
           ))}

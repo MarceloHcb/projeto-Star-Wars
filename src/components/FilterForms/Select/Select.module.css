@@ -1,0 +1,13 @@
+.container {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px; 
+    border: 1px solid #FFFFFF;
+    margin: 0 10px;  
+}
+
+.option{
+    background-color: transparent;
+    color: black;
+}

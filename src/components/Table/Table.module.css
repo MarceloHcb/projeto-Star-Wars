@@ -1,0 +1,30 @@
+.container {
+  width: 90vw;
+  height: 100%;  
+}
+
+table {
+  table-layout: fixed;  
+}
+
+tr,
+td {
+  width: 100px;
+  height: 70px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  border-bottom: 1px solid #828282;
+  text-overflow: ellipsis;
+}
+td:hover {
+  color: #fae60a;
+  overflow: visible;
+  white-space: initial;
+}
+
+thead {
+  background: #2e3035;
+  border: 1px solid #000000;
+  border-radius: 1px 0px 0px 0px;
+}

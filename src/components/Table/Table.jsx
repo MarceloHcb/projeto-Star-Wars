@@ -1,5 +1,6 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
+import style from './Table.module.css';
 
 function Table() {
   const { dataApi, loading, newData = dataApi } = useAuth();
@@ -9,7 +10,7 @@ function Table() {
   return (
 
     <div>
-      <table border={ 3 }>
+      <table className={ style.container }>
         <thead>
           <tr>
             {dataApi && (Object.keys(dataApi[0]).map((el, index) => (

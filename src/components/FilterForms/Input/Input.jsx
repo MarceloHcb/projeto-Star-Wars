@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import style from './Input.module.css';
 
 function Input({ type, handleChange, dataTestid, name, value, placeholder, label }) {
   return (
     <label htmlFor="input">
       {label}
       <input
+        className={ style.container }
         type={ type }
         name={ name }
         value={ value }

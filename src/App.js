@@ -5,9 +5,11 @@ import { AuthProvider } from './context/auth';
 
 function App() {
   return (
-    <AuthProvider>
-      <Home />
-    </AuthProvider>
+    <div className="around">
+      <AuthProvider>
+        <Home />
+      </AuthProvider>
+    </div>
   );
 }
 

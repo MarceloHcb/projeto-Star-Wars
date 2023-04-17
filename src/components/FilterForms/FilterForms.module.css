@@ -1,0 +1,14 @@
+.container {
+  padding: 20px;
+}
+.container input {
+  background-color: transparent;
+  color: white;
+}
+.input_filter input {
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 40%;
+}

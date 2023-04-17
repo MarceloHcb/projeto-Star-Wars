@@ -4,6 +4,7 @@ import Input from './Input/Input';
 import Button from './Button/Button';
 import Select from './Select/Select';
 import FilterComponent from './FilterComponent/FilterComponent';
+import style from './FilterForms.module.css';
 
 function FilterForms() {
   const { handleChange, handleFilterClick, handleFilterChange,
@@ -11,15 +12,18 @@ function FilterForms() {
     handleRemoveAllFilters, handleOrder, handleOrderClick } = useAuth();
 
   return (
-    <div>
-      <Input
-        dataTestid="name-filter"
-        type="text"
-        name="search"
-        handleChange={ handleChange }
-        label="Filtrar"
-        placeholder="Filtrar por nome"
-      />
+    <div className={ style.container }>
+      <div className={ style.input_filter }>
+
+        <Input
+          dataTestid="name-filter"
+          type="text"
+          name="search"
+          handleChange={ handleChange }
+          label="Filtrar"
+          placeholder="Filtrar por nome"
+        />
+      </div>
       <Select
         options={ optionsColumn }
         dataTestid="column-filter"
