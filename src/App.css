@@ -20,6 +20,8 @@ html {
   position: fixed;
   top: -370px;
   left: 5%;
+  height: 70%;
+  overflow-y: scroll;
 }
 button {
   border: 1px solid white;
